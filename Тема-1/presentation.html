@@ -148,14 +148,17 @@ kbd { padding: 2px 5px; border: 1px solid var(--border); border-radius: 4px; bac
   .slide-body { flex-direction: column; }
   /* Single-column grids */
   .cards.c2, .cards.c3, .safety-grid { grid-template-columns: 1fr; }
-  /* Hide top section-pill menu; use nav dots instead */
-  #section-menu { display: none; }
+  /* Hide section pills and extra controls; keep only the theme button */
+  #section-menu { display: flex; gap: 0; padding: 4px 6px; }
+  #section-menu .section-pill, #section-menu .ctrl-sep, #btn-fs { display: none; }
+  /* Make theme button easily tappable */
+  #btn-theme { width: 36px; height: 36px; font-size: 16px; }
   /* Move nav arrows to the bottom so they don't cover slide content */
   .nav-btn { width: 44px; height: 44px; font-size: 18px; top: auto; bottom: 12px; transform: none; }
   #btn-prev { left: 16px; }
   #btn-next { right: 16px; }
-  /* Nav buttons are now at the bottom — top nav bar can span almost full width */
-  #nav { max-width: calc(100vw - 32px); }
+  /* Leave right margin for the theme button (≈52px) */
+  #nav { max-width: calc(100vw - 80px); }
   .nav-dot { width: 4px; height: 4px; }
   #nav-dots { gap: 3px; }
   /* Images and side info panels — allow full width */
