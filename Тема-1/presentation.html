@@ -154,7 +154,10 @@ kbd { padding: 2px 5px; border: 1px solid var(--border); border-radius: 4px; bac
   .nav-btn { width: 44px; height: 44px; font-size: 18px; top: auto; bottom: 12px; transform: none; }
   #btn-prev { left: 16px; }
   #btn-next { right: 16px; }
-  #nav { max-width: calc(100vw - 90px); }
+  /* Nav buttons are now at the bottom — top nav bar can span almost full width */
+  #nav { max-width: calc(100vw - 32px); }
+  .nav-dot { width: 4px; height: 4px; }
+  #nav-dots { gap: 3px; }
   /* Images and side info panels — allow full width */
   .slide-img { width: 100%; flex: unset; }
   .slide-img img { max-width: 100%; max-height: 180px; }
