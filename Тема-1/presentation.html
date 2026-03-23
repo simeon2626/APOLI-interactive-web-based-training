@@ -1162,8 +1162,16 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'End') goToSlide(TOTAL - 1);
 });
 var touchStartX = 0;
-document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, {passive:true});
+var touchIsPinch = false;
+document.addEventListener('touchstart', function(e) {
+  touchIsPinch = e.touches.length >= 2;
+  touchStartX = e.touches[0].clientX;
+}, {passive:true});
+document.addEventListener('touchmove', function(e) {
+  if (e.touches.length >= 2) touchIsPinch = true;
+}, {passive:true});
 document.addEventListener('touchend', function(e) {
+  if (touchIsPinch) return;
   var dx = e.changedTouches[0].clientX - touchStartX;
   if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1);
 }, {passive:true});
