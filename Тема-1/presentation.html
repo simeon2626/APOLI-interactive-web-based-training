@@ -231,6 +231,108 @@ body.light .slide-section h2 { background: linear-gradient(135deg, #1e1b4b, var(
 body.light .slide-content h2 { background: linear-gradient(135deg, #1e293b 60%, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 body.light .section-number { background: linear-gradient(135deg, var(--accent), var(--accent3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
+/* ===== BROWSER SIMULATOR (Задача 2) ===== */
+.sim-step-bar { display:flex; align-items:center; gap:5px; flex-wrap:wrap; flex-shrink:0; }
+.sim-step-pill { padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; border:1.5px solid var(--border); color:var(--text-muted); background:var(--surface); transition:all 0.3s; white-space:nowrap; }
+.sim-step-pill.done { background:rgba(34,197,94,.12); border-color:var(--green); color:var(--green); }
+.sim-step-pill.active { background:rgba(99,102,241,.12); border-color:var(--accent); color:var(--accent2); }
+.sim-step-sep { color:var(--text-muted); flex-shrink:0; font-size:14px; }
+.sim-reset-btn { padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600; border:1.5px solid var(--border); color:var(--text-muted); background:var(--surface); cursor:pointer; transition:all 0.3s; margin-left:auto; }
+.sim-reset-btn:hover { border-color:var(--accent); color:var(--accent2); }
+#sim-browser { flex:1; display:flex; flex-direction:column; min-height:260px; max-height:calc(100vh - 240px); background:#e8edf3; border-radius:12px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,.4); position:relative; }
+.sim-chrome { background:#dde3ec; padding:7px 10px; display:flex; align-items:center; gap:8px; border-bottom:1px solid #c4cbd5; flex-shrink:0; }
+.sim-nav-group { display:flex; gap:4px; flex-shrink:0; }
+.sim-nav-btn { width:28px; height:28px; border-radius:50%; border:none; background:transparent; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; color:#555; transition:background .2s,box-shadow .2s; flex-shrink:0; line-height:1; }
+.sim-nav-btn:hover:not(:disabled) { background:rgba(0,0,0,.12); }
+.sim-nav-btn:disabled { opacity:.3; cursor:not-allowed; }
+@keyframes sim-btn-pulse { 0%,100%{box-shadow:0 0 0 4px rgba(99,102,241,.55);background:rgba(99,102,241,.15)} 50%{box-shadow:0 0 0 9px rgba(99,102,241,.1);background:rgba(99,102,241,.25)} }
+.sim-nav-btn.sim-hl { animation:sim-btn-pulse 1.4s infinite; color:#4338ca; }
+.sim-addr-bar { flex:1; background:#fff; border-radius:20px; padding:5px 14px; display:flex; align-items:center; gap:7px; border:2px solid transparent; transition:border-color .3s,box-shadow .3s; min-width:0; overflow:hidden; }
+@keyframes sim-bar-pulse { 0%,100%{border-color:var(--accent);box-shadow:0 0 0 2px rgba(99,102,241,.4)} 50%{box-shadow:0 0 0 6px rgba(99,102,241,.1)} }
+.sim-addr-bar.sim-hl { animation:sim-bar-pulse 1.4s infinite; }
+.sim-lock { font-size:11px; color:#2e7d32; flex-shrink:0; }
+#sim-url-text { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#333; font-size:13px; }
+#sim-viewport { flex:1; overflow-y:auto; background:#fff; position:relative; min-height:0; scrollbar-width:thin; scrollbar-color:#c4cbd5 transparent; }
+.sim-page { display:none; }
+.sim-page.active { display:block; animation:simPgIn .28s ease; }
+@keyframes simPgIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:none} }
+#sim-loading { position:absolute; inset:0; background:rgba(232,237,243,.9); display:flex; align-items:center; justify-content:center; z-index:20; opacity:0; pointer-events:none; transition:opacity .18s; }
+#sim-loading.show { opacity:1; pointer-events:all; }
+.sim-loader { width:30px; height:30px; border:3px solid #c4cbd5; border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; }
+@keyframes spin { to{transform:rotate(360deg)} }
+#sim-hint-box { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); background:rgba(8,12,22,.94); color:#fff; border:1.5px solid var(--accent); border-radius:12px; padding:8px 16px; font-size:13px; line-height:1.5; max-width:390px; width:calc(100% - 20px); text-align:center; z-index:30; transition:opacity .3s,transform .3s; box-shadow:0 4px 24px rgba(99,102,241,.35); pointer-events:none; }
+#sim-hint-box.faded { opacity:0; transform:translateX(-50%) translateY(8px); }
+#sim-hint-box .hs { font-size:10px; color:var(--accent2); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:3px; }
+#sim-warn-toast { position:absolute; top:48px; left:50%; transform:translateX(-50%) translateY(-8px); background:linear-gradient(135deg,rgba(245,158,11,.97),rgba(234,125,6,.97)); color:#1c0800; border-radius:10px; padding:8px 14px; font-size:12px; font-weight:600; z-index:40; pointer-events:none; opacity:0; transition:opacity .25s,transform .25s; box-shadow:0 4px 16px rgba(0,0,0,.35); max-width:340px; width:calc(100% - 24px); text-align:center; }
+#sim-warn-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+/* Wiki page skins — intentionally light, per real browser content */
+.wp-page { font-family:-apple-system,'Segoe UI',sans-serif; font-size:13px; line-height:1.6; color:#202122; background:#fff; }
+.wp-topbar { display:flex; align-items:center; justify-content:space-between; padding:5px 14px; background:#fff; border-bottom:1px solid #a2a9b1; font-size:12px; color:#54595d; }
+.wp-topbar-lnks { display:flex; gap:10px; }
+.wp-lnk { color:#0645ad; text-decoration:underline; cursor:pointer; font-size:12px; }
+.wp-lnk:hover { color:#0b0080; }
+.wp-central { text-align:center; padding:16px 12px 8px; }
+.wp-globe { font-size:56px; line-height:1; margin-bottom:5px; }
+.wp-brand { font-size:22px; font-weight:bold; color:#202122; margin-bottom:2px; }
+.wp-tagline { font-size:12px; color:#54595d; margin-bottom:12px; }
+.wp-search { display:flex; max-width:400px; margin:0 auto 14px; border:1px solid #a2a9b1; border-radius:4px; overflow:hidden; }
+.wp-search input { flex:1; padding:6px 12px; border:none; outline:none; font-size:13px; color:#202122; background:#fff; cursor:default; }
+.wp-srcbtn { padding:6px 12px; background:#f8f9fa; border:none; border-left:1px solid #a2a9b1; cursor:pointer; font-size:13px; }
+.wp-srcbtn:hover { background:#e8e8e8; }
+.wp-lang-intro { font-size:12px; color:#54595d; text-align:center; margin-bottom:8px; }
+.wp-lang-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:3px; max-width:620px; margin:0 auto; padding:0 12px 14px; }
+.wp-lang-item { text-align:center; padding:8px 5px; border-radius:5px; cursor:pointer; transition:background .15s; border:2px solid transparent; }
+.wp-lang-item:hover { background:#f0f0f0; }
+.wp-lang-name { font-size:13px; font-weight:bold; color:#0645ad; text-decoration:underline; display:block; margin-bottom:1px; }
+.wp-lang-count { font-size:11px; color:#54595d; }
+@keyframes lnk-pulse { 0%,100%{box-shadow:0 0 0 3px rgba(99,102,241,.55)} 50%{box-shadow:0 0 0 8px rgba(99,102,241,.1)} }
+.wp-lang-item.sim-hl { background:rgba(99,102,241,.1); border-color:var(--accent); animation:lnk-pulse 1.4s infinite; }
+.wp-lang-item.sim-hl .wp-lang-name { color:#3730a3; }
+.bgwp-topbar { background:#f8f9fa; border-bottom:1px solid #a2a9b1; padding:4px 12px; font-size:11px; color:#54595d; display:flex; justify-content:space-between; align-items:center; }
+.bgwp-nav { background:#fff; border-bottom:1px solid #a2a9b1; padding:5px 12px; display:flex; gap:10px; flex-wrap:wrap; font-size:12px; }
+.bgwp-nav a { color:#0645ad; text-decoration:underline; cursor:pointer; }
+.bgwp-nav a:hover { color:#0b0080; }
+.bgwp-body { display:grid; grid-template-columns:1fr 190px; }
+.bgwp-main { padding:10px 12px; border-right:1px solid #eee; }
+.bgwp-side { padding:10px; font-size:12px; color:#202122; }
+.bgwp-welcome { font-size:15px; font-weight:bold; border-bottom:1px solid #a2a9b1; padding-bottom:5px; margin-bottom:10px; color:#202122; }
+.bgwp-sec { margin-bottom:12px; }
+.bgwp-sec h4 { font-size:12px; color:#54595d; font-weight:normal; border-bottom:1px solid #a2a9b1; padding-bottom:3px; margin-bottom:7px; }
+.bgwp-feat { display:block; padding:7px 11px; background:#f8f9fa; border:1px solid #a2a9b1; border-radius:4px; color:#0645ad; text-decoration:underline; cursor:pointer; font-size:13px; font-weight:600; margin-bottom:5px; transition:background .15s; }
+.bgwp-feat:hover { background:#eaf3fb; }
+.bgwp-feat.sim-hl { background:rgba(99,102,241,.1); border-color:var(--accent); border-width:2px; animation:lnk-pulse 1.4s infinite; }
+.bgwp-side-lnk { color:#0645ad; text-decoration:underline; cursor:pointer; font-size:12px; line-height:1.9; display:block; }
+.bgwp-side-lnk:hover { color:#0b0080; }
+.bgwp-txt-lnk { color:#0645ad; text-decoration:underline; cursor:pointer; font-size:13px; }
+.bgwp-txt-lnk:hover { color:#0b0080; }
+.katinka-page { padding:12px 16px; font-size:13px; color:#202122; line-height:1.6; }
+.katinka-h1 { font-size:18px; font-weight:bold; border-bottom:1px solid #a2a9b1; padding-bottom:6px; margin-bottom:10px; color:#202122; }
+.katinka-float { float:right; margin:0 0 10px 14px; border:1px solid #a2a9b1; padding:6px; background:#f8f9fa; width:160px; text-align:center; border-radius:3px; }
+.katinka-img { height:110px; background:linear-gradient(135deg,#a5d6a7,#4caf50); border-radius:2px; display:flex; align-items:center; justify-content:center; font-size:48px; margin-bottom:4px; }
+.katinka-cap { font-size:11px; color:#54595d; }
+.katinka-lnk,.gen-lnk { color:#0645ad; text-decoration:underline; cursor:pointer; }
+.katinka-lnk:hover,.gen-lnk:hover { color:#0b0080; }
+.gen-art { padding:12px 16px; font-size:13px; color:#202122; line-height:1.6; }
+.gen-art-h1 { font-size:18px; font-weight:bold; border-bottom:1px solid #a2a9b1; padding-bottom:6px; margin-bottom:10px; color:#202122; }
+.gen-art p { margin-bottom:9px; }
+@media (max-width:768px) {
+  .bgwp-body { grid-template-columns:1fr; }
+  .bgwp-side { display:none; }
+  .wp-lang-grid { grid-template-columns:repeat(2,1fr); }
+  #sim-browser { min-height:0; max-height:none; flex:0 0 auto; }
+  #sim-viewport { max-height:260px; min-height:180px; overflow-y:auto; }
+  #sim-hint-box { font-size:12px; padding:7px 11px; max-width:calc(100% - 16px); }
+  .sim-step-bar { gap:4px; }
+  .sim-step-pill { padding:3px 8px; font-size:10px; }
+  .sim-reset-btn { margin-left:2px; }
+}
+@media (max-width:480px) {
+  .wp-lang-grid { grid-template-columns:repeat(2,1fr); }
+  .sim-chrome { padding:6px 8px; gap:5px; }
+  .sim-nav-btn { width:24px; height:24px; font-size:15px; }
+  #sim-url-text { font-size:11px; }
+}
+
 </style>
 </head>
 <body>
@@ -481,21 +583,211 @@ body.light .section-number { background: linear-gradient(135deg, var(--accent), 
 
 <div class="slide slide-content">
   <h2>Задача 2 &mdash; Разгледайте Уикипедия</h2>
-  <div class="slide-body">
-    <div class="slide-text scrollable animate-children">
-      <ul class="bullets">
-        <li>Копирайте в адресното поле: <span class="hl">https://www.wikipedia.org</span></li>
-        <li>Намерете и последвайте хипервръзката за <span class="hl">български език</span> &mdash; ще се отвори bg.wikipedia.org</li>
-        <li>Използвайте бутона <span class="hl">&#8592; (назад)</span> и се върнете в предишната страница</li>
-        <li>Последвайте връзката <span class="hl">&bdquo;Картинка на деня&ldquo;</span></li>
-        <li>Намерете и натиснете върху различни хипервръзки и проследете движението между страниците</li>
-      </ul>
-      <div class="warn-box">
-        <strong>&#9888;&#65039; Забележете:</strong> Използвайте бутоните &#8592; и &#8594; на браузъра &mdash; те са различни от връзките в страницата!
-      </div>
+  <div class="slide-body" style="flex-direction:column;gap:10px;">
+
+    <!-- Step ribbon -->
+    <div class="sim-step-bar">
+      <div class="sim-step-pill active" id="sim2-s0">&#9312; Отвори Wikipedia</div>
+      <span class="sim-step-sep">&#8250;</span>
+      <div class="sim-step-pill" id="sim2-s1">&#9313; Избери Български</div>
+      <span class="sim-step-sep">&#8250;</span>
+      <div class="sim-step-pill" id="sim2-s2">&#9314; &#8592; Назад</div>
+      <span class="sim-step-sep">&#8250;</span>
+      <div class="sim-step-pill" id="sim2-s3">&#9315; &#8594; Напред</div>
+      <span class="sim-step-sep">&#8250;</span>
+      <div class="sim-step-pill" id="sim2-s4">&#9316; Картинка на деня</div>
+      <button class="sim-reset-btn" onclick="simReset()">&#8635; Отначало</button>
     </div>
-  </div>
-</div>
+
+    <!-- Browser frame -->
+    <div id="sim-browser">
+
+      <!-- Chrome toolbar -->
+      <div class="sim-chrome">
+        <div class="sim-nav-group">
+          <button class="sim-nav-btn" id="sim-back" onclick="simBack()" disabled title="&#1053;&#1072;&#1079;&#1072;&#1076; (&#8592;)">&#8592;</button>
+          <button class="sim-nav-btn" id="sim-fwd"  onclick="simForward()" disabled title="&#1053;&#1072;&#1087;&#1088;&#1077;&#1076; (&#8594;)">&#8594;</button>
+          <button class="sim-nav-btn" id="sim-rld"  onclick="simReload()" title="&#1055;&#1088;&#1077;&#1079;&#1072;&#1088;&#1077;&#1076;&#1080; (&#8635;)">&#8635;</button>
+        </div>
+        <div class="sim-addr-bar" id="sim-abar">
+          <span class="sim-lock">&#128274;</span>
+          <span id="sim-url-text">https://www.wikipedia.org</span>
+        </div>
+      </div>
+
+      <!-- Viewport -->
+      <div id="sim-viewport">
+
+        <!-- PAGE 0: www.wikipedia.org -->
+        <div class="sim-page active wp-page" id="spp-0">
+          <div class="wp-topbar">
+            <span style="font-weight:600;color:#202122">Wikipedia</span>
+            <div class="wp-topbar-lnks">
+              <span class="wp-lnk" onclick="simWarnLink()">&#1042;&#1093;&#1086;&#1076;</span>
+              <span class="wp-lnk" onclick="simWarnLink()">&#1053;&#1072;&#1087;&#1088;&#1072;&#1074;&#1080; &#1089;&#1084;&#1077;&#1090;&#1082;&#1072;</span>
+            </div>
+          </div>
+          <div class="wp-central">
+            <div class="wp-globe">&#127758;</div>
+            <div class="wp-brand">Wikipedia</div>
+            <div class="wp-tagline">The Free Encyclopedia &bull; &#1052;&#1085;&#1086;&#1075;&#1086;&#1077;&#1079;&#1080;&#1095;&#1085;&#1072;&#1090;&#1072; &#1089;&#1074;&#1086;&#1073;&#1086;&#1076;&#1085;&#1072; &#1077;&#1085;&#1094;&#1080;&#1082;&#1083;&#1086;&#1087;&#1077;&#1076;&#1080;&#1103;</div>
+            <div class="wp-search">
+              <input type="text" placeholder="&#1058;&#1098;&#1088;&#1089;&#1077;&#1085;&#1077; &#1074; Wikipedia" readonly onclick="simWarnLink()">
+              <button class="wp-srcbtn" onclick="simWarnLink()">&#128269;</button>
+            </div>
+          </div>
+          <div style="padding:0 12px 14px">
+            <div class="wp-lang-intro">&#1048;&#1079;&#1073;&#1077;&#1088;&#1077;&#1090;&#1077; &#1042;&#1072;&#1096;&#1080;&#1103; &#1077;&#1079;&#1080;&#1082; &bull; Select your language &bull; &#1042;&#1099;&#1073;&#1077;&#1088;&#1080;&#1090;&#1077; &#1074;&#1072;&#1096; &#1103;&#1079;&#1099;&#1082;</div>
+            <div class="wp-lang-grid">
+              <div class="wp-lang-item" onclick="simWarnLink()">
+                <span class="wp-lang-name">English</span>
+                <span class="wp-lang-count">6&thinsp;900&thinsp;000+ &#1089;&#1090;&#1072;&#1090;&#1080;&#1080;</span>
+              </div>
+              <div class="wp-lang-item" onclick="simWarnLink()">
+                <span class="wp-lang-name">Espa&ntilde;ol</span>
+                <span class="wp-lang-count">1&thinsp;900&thinsp;000+ &#1089;&#1090;&#1072;&#1090;&#1080;&#1080;</span>
+              </div>
+              <div class="wp-lang-item" id="sim-bg-link" onclick="simClickBgLink()" style="cursor:pointer">
+                <span class="wp-lang-name">&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;</span>
+                <span class="wp-lang-count">340&thinsp;000+ &#1089;&#1090;&#1072;&#1090;&#1080;&#1080;</span>
+              </div>
+              <div class="wp-lang-item" onclick="simWarnLink()">
+                <span class="wp-lang-name">Deutsch</span>
+                <span class="wp-lang-count">2&thinsp;900&thinsp;000+ &#1089;&#1090;&#1072;&#1090;&#1080;&#1080;</span>
+              </div>
+              <div class="wp-lang-item" onclick="simWarnLink()">
+                <span class="wp-lang-name">Fran&ccedil;ais</span>
+                <span class="wp-lang-count">2&thinsp;500&thinsp;000+ &#1089;&#1090;&#1072;&#1090;&#1080;&#1080;</span>
+              </div>
+              <div class="wp-lang-item" onclick="simWarnLink()">
+                <span class="wp-lang-name">Italiano</span>
+                <span class="wp-lang-count">1&thinsp;800&thinsp;000+ &#1089;&#1090;&#1072;&#1090;&#1080;&#1080;</span>
+              </div>
+              <div class="wp-lang-item" onclick="simWarnLink()">
+                <span class="wp-lang-name">&#26085;&#26412;&#35486;</span>
+                <span class="wp-lang-count">1&thinsp;400&thinsp;000+ &#1089;&#1090;&#1072;&#1090;&#1080;&#1080;</span>
+              </div>
+              <div class="wp-lang-item" onclick="simWarnLink()">
+                <span class="wp-lang-name">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;</span>
+                <span class="wp-lang-count">1&thinsp;900&thinsp;000+ &#1089;&#1090;&#1072;&#1090;&#1080;&#1080;</span>
+              </div>
+            </div>
+          </div>
+        </div><!-- /spp-0 -->
+
+        <!-- PAGE 1: bg.wikipedia.org -->
+        <div class="sim-page wp-page" id="spp-1">
+          <div class="bgwp-topbar">
+            <span>&#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103; &mdash; &#1089;&#1074;&#1086;&#1073;&#1086;&#1076;&#1085;&#1072; &#1077;&#1085;&#1094;&#1080;&#1082;&#1083;&#1086;&#1087;&#1077;&#1076;&#1080;&#1103;</span>
+            <div class="wp-topbar-lnks">
+              <span class="wp-lnk" onclick="simWarnLink()">&#1042;&#1093;&#1086;&#1076;</span>
+              <span class="wp-lnk" onclick="simWarnLink()">&#1053;&#1072;&#1087;&#1088;&#1072;&#1074;&#1080; &#1089;&#1084;&#1077;&#1090;&#1082;&#1072;</span>
+            </div>
+          </div>
+          <div class="bgwp-nav">
+            <a onclick="simGoPage1()">&#1053;&#1072;&#1095;&#1072;&#1083;&#1085;&#1072; &#1089;&#1090;&#1088;&#1072;&#1085;&#1080;&#1094;&#1072;</a>
+            <a onclick="simWarnLink()">&#1055;&#1086;&#1088;&#1090;&#1072;&#1083;&#1080;</a>
+            <a onclick="simWarnLink()">&#1057;&#1083;&#1091;&#1095;&#1072;&#1081;&#1085;&#1072; &#1089;&#1090;&#1072;&#1090;&#1080;&#1103;</a>
+            <a onclick="simWarnLink()">&#1047;&#1072; &#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103;</a>
+            <a onclick="simWarnLink()">&#1050;&#1086;&#1085;&#1090;&#1072;&#1082;&#1090;&#1080;</a>
+          </div>
+          <div class="bgwp-body">
+            <div class="bgwp-main">
+              <div class="bgwp-welcome">&#128075; &#1044;&#1086;&#1073;&#1088;&#1077; &#1076;&#1086;&#1096;&#1083;&#1080; &#1074; &#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103;!</div>
+              <div class="bgwp-sec">
+                <h4>&#1048;&#1079;&#1073;&#1088;&#1072;&#1085;&#1072; &#1089;&#1090;&#1072;&#1090;&#1080;&#1103; &#1085;&#1072; &#1089;&#1077;&#1076;&#1084;&#1080;&#1094;&#1072;&#1090;&#1072;</h4>
+                <p><a class="bgwp-txt-lnk" onclick="simGoGeneric('&#1048;&#1074;&#1072;&#1085; &#1042;&#1072;&#1079;&#1086;&#1074;')">&#1048;&#1074;&#1072;&#1085; &#1042;&#1072;&#1079;&#1086;&#1074;</a> &#1077; <a class="bgwp-txt-lnk" onclick="simGoGeneric('&#1055;&#1086;&#1077;&#1079;&#1080;&#1103;')">&#1087;&#1086;&#1077;&#1090;</a> &#1080; <a class="bgwp-txt-lnk" onclick="simGoGeneric('&#1055;&#1088;&#1086;&#1079;&#1072;')">&#1087;&#1080;&#1089;&#1072;&#1090;&#1077;&#1083;</a>, &#1085;&#1072;&#1094;&#1080;&#1086;&#1085;&#1072;&#1083;&#1077;&#1085; &#1087;&#1086;&#1077;&#1090; &#1085;&#1072; <a class="bgwp-txt-lnk" onclick="simGoGeneric('&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1080;&#1103;')">&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1080;&#1103;</a>. &#1056;&#1086;&#1076;&#1077;&#1085; &#1077; &#1085;&#1072; 9 &#1102;&#1083;&#1080; 1850 &#1075;. &#1074; &#1057;&#1086;&#1087;&#1086;&#1090;. &#1040;&#1074;&#1090;&#1086;&#1088; &#1077; &#1085;&#1072; &#1077;&#1087;&#1086;&#1087;&#1077;&#1103;&#1090;&#1072; <em>&#1055;&#1086;&#1076; &#1080;&#1075;&#1086;&#1090;&#1086;</em>...</p>
+                <a class="bgwp-txt-lnk" onclick="simGoGeneric('&#1048;&#1074;&#1072;&#1085; &#1042;&#1072;&#1079;&#1086;&#1074;')">&#8250; &#1055;&#1088;&#1086;&#1095;&#1077;&#1090;&#1080; &#1087;&#1086;&#1074;&#1077;&#1095;&#1077;</a>
+              </div>
+              <div class="bgwp-sec">
+                <h4>&#1041;&#1098;&#1088;&#1079;&#1080; &#1087;&#1088;&#1077;&#1087;&#1088;&#1072;&#1090;&#1082;&#1080;</h4>
+                <a class="bgwp-feat" id="sim-kartinka-link" onclick="simClickKartinka()">&#128247; &#1050;&#1072;&#1088;&#1090;&#1080;&#1085;&#1082;&#1072; &#1085;&#1072; &#1076;&#1077;&#1085;&#1103;</a>
+                <a class="bgwp-feat" onclick="simGoGeneric('&#1057;&#1090;&#1072;&#1090;&#1080;&#1103; &#1085;&#1072; &#1089;&#1077;&#1076;&#1084;&#1080;&#1094;&#1072;&#1090;&#1072;')">&#128218; &#1057;&#1090;&#1072;&#1090;&#1080;&#1103; &#1085;&#1072; &#1089;&#1077;&#1076;&#1084;&#1080;&#1094;&#1072;&#1090;&#1072;</a>
+                <a class="bgwp-feat" onclick="simGoGeneric('&#1047;&#1085;&#1072;&#1077;&#1090;&#1077; &#1083;&#1080;, &#1095;&#1077;...')">&#129300; &#1047;&#1085;&#1072;&#1077;&#1090;&#1077; &#1083;&#1080;, &#1095;&#1077;...</a>
+              </div>
+            </div>
+            <div class="bgwp-side">
+              <div class="bgwp-sec">
+                <h4>&#1057;&#1090;&#1072;&#1090;&#1080;&#1089;&#1090;&#1080;&#1082;&#1072;</h4>
+                &#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103; &#1085;&#1072; <strong>&#1073;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;</strong><br>
+                <span style="font-size:16px;font-weight:bold;color:#0645ad">340&thinsp;000+</span> &#1089;&#1090;&#1072;&#1090;&#1080;&#1080;<br>
+                <span style="color:#54595d;font-size:11px">1&thinsp;800+ &#1072;&#1082;&#1090;&#1080;&#1074;&#1085;&#1080; &#1087;&#1086;&#1090;&#1088;&#1077;&#1073;&#1080;&#1090;&#1077;&#1083;&#1080;</span>
+              </div>
+              <div class="bgwp-sec">
+                <h4>&#1058;&#1077;&#1084;&#1072;&#1090;&#1080;&#1095;&#1085;&#1080; &#1087;&#1086;&#1088;&#1090;&#1072;&#1083;&#1080;</h4>
+                <a class="bgwp-side-lnk" onclick="simGoGeneric('&#1048;&#1089;&#1090;&#1086;&#1088;&#1080;&#1103;')">&#128218; &#1048;&#1089;&#1090;&#1086;&#1088;&#1080;&#1103;</a>
+                <a class="bgwp-side-lnk" onclick="simGoGeneric('&#1043;&#1077;&#1086;&#1075;&#1088;&#1072;&#1092;&#1080;&#1103;')">&#127758; &#1043;&#1077;&#1086;&#1075;&#1088;&#1072;&#1092;&#1080;&#1103;</a>
+                <a class="bgwp-side-lnk" onclick="simGoGeneric('&#1053;&#1072;&#1091;&#1082;&#1072;')">&#128300; &#1053;&#1072;&#1091;&#1082;&#1072;</a>
+                <a class="bgwp-side-lnk" onclick="simGoGeneric('&#1058;&#1077;&#1093;&#1085;&#1086;&#1083;&#1086;&#1075;&#1080;&#1080;')">&#128187; &#1058;&#1077;&#1093;&#1085;&#1086;&#1083;&#1086;&#1075;&#1080;&#1080;</a>
+                <a class="bgwp-side-lnk" onclick="simGoGeneric('&#1048;&#1079;&#1082;&#1091;&#1089;&#1090;&#1074;&#1086;')">&#127912; &#1048;&#1079;&#1082;&#1091;&#1089;&#1090;&#1074;&#1086;</a>
+              </div>
+            </div>
+          </div>
+        </div><!-- /spp-1 -->
+
+        <!-- PAGE 2: Картинка на деня -->
+        <div class="sim-page wp-page" id="spp-2">
+          <div class="bgwp-topbar">
+            <span>&#1050;&#1072;&#1088;&#1090;&#1080;&#1085;&#1082;&#1072; &#1085;&#1072; &#1076;&#1077;&#1085;&#1103; &mdash; &#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103;</span>
+            <div class="wp-topbar-lnks">
+              <span class="wp-lnk" onclick="simWarnLink()">&#1042;&#1093;&#1086;&#1076;</span>
+            </div>
+          </div>
+          <div class="bgwp-nav">
+            <a onclick="simBack()">&#8592; &#1053;&#1072;&#1079;&#1072;&#1076;</a>
+            <a onclick="simGoPage1()">&#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103; &#1085;&#1072; &#1073;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;</a>
+            <a onclick="simWarnLink()">&#1057;&#1083;&#1091;&#1095;&#1072;&#1081;&#1085;&#1072; &#1089;&#1090;&#1072;&#1090;&#1080;&#1103;</a>
+          </div>
+          <div class="katinka-page">
+            <div class="katinka-h1">&#128247; &#1050;&#1072;&#1088;&#1090;&#1080;&#1085;&#1082;&#1072; &#1085;&#1072; &#1076;&#1077;&#1085;&#1103;</div>
+            <div class="katinka-float">
+              <div class="katinka-img">&#127795;</div>
+              <div class="katinka-cap">&#1043;&#1086;&#1088;&#1089;&#1082;&#1072; &#1087;&#1086;&#1083;&#1103;&#1085;&#1072; &#1074;<br><a class="katinka-lnk" onclick="simGoGeneric('&#1056;&#1080;&#1083;&#1072;')">&#1056;&#1080;&#1083;&#1072;</a>, &#1102;&#1085;&#1080; 2024 &#1075;.</div>
+            </div>
+            <p>&#1042;&#1089;&#1077;&#1082;&#1080; &#1076;&#1077;&#1085; <a class="katinka-lnk" onclick="simGoGeneric('&#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103;')">&#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103;</a> &#1080;&#1079;&#1073;&#1080;&#1088;&#1072; <strong>&#1082;&#1072;&#1088;&#1090;&#1080;&#1085;&#1082;&#1072; &#1085;&#1072; &#1076;&#1077;&#1085;&#1103;</strong> &mdash; &#1080;&#1079;&#1082;&#1083;&#1102;&#1095;&#1080;&#1090;&#1077;&#1083;&#1085;&#1086; &#1080;&#1079;&#1086;&#1073;&#1088;&#1072;&#1078;&#1077;&#1085;&#1080;&#1077; &#1086;&#1090; <a class="katinka-lnk" onclick="simGoGeneric('&#1054;&#1073;&#1097;&#1086;&#1084;&#1077;&#1076;&#1080;&#1103;')">&#1054;&#1073;&#1097;&#1086;&#1084;&#1077;&#1076;&#1080;&#1103;</a>.</p>
+            <p>&#1053;&#1072; &#1089;&#1085;&#1080;&#1084;&#1082;&#1072;&#1090;&#1072; &#1089;&#1077; &#1074;&#1080;&#1078;&#1076;&#1072; &#1082;&#1088;&#1072;&#1089;&#1080;&#1074;&#1072; <a class="katinka-lnk" onclick="simGoGeneric('&#1043;&#1086;&#1088;&#1089;&#1082;&#1072; &#1087;&#1086;&#1083;&#1103;&#1085;&#1072;')">&#1075;&#1086;&#1088;&#1089;&#1082;&#1072; &#1087;&#1086;&#1083;&#1103;&#1085;&#1072;</a> &#1074; <a class="katinka-lnk" onclick="simGoGeneric('&#1056;&#1080;&#1083;&#1072;')">&#1056;&#1080;&#1083;&#1072;</a> &mdash; &#1077;&#1076;&#1085;&#1086; &#1086;&#1090; &#1087;&#1088;&#1080;&#1088;&#1086;&#1076;&#1085;&#1080;&#1090;&#1077; &#1073;&#1086;&#1075;&#1072;&#1090;&#1089;&#1090;&#1074;&#1072; &#1085;&#1072; <a class="katinka-lnk" onclick="simGoGeneric('&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1080;&#1103;')">&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1080;&#1103;</a>.</p>
+            <p>&#1042;&#1080;&#1078;&#1090;&#1077; &#1080; &#1072;&#1088;&#1093;&#1080;&#1074;&#1072;: <a class="katinka-lnk" onclick="simGoGeneric('&#1040;&#1088;&#1093;&#1080;&#1074; &#1085;&#1072; &#1082;&#1072;&#1088;&#1090;&#1080;&#1085;&#1082;&#1080;&#1090;&#1077;')">&#1040;&#1088;&#1093;&#1080;&#1074; &#1085;&#1072; &#1082;&#1072;&#1088;&#1090;&#1080;&#1085;&#1082;&#1080;&#1090;&#1077; &#1085;&#1072; &#1076;&#1077;&#1085;&#1103;</a></p>
+            <div style="clear:both"></div>
+            <hr style="border:none;border-top:1px solid #a2a9b1;margin:10px 0">
+            <p><a class="katinka-lnk" onclick="simGoGeneric('&#1042;&#1095;&#1077;&#1088;&#1072;&#1096;&#1085;&#1072; &#1082;&#1072;&#1088;&#1090;&#1080;&#1085;&#1082;&#1072;')">&#8592; &#1042;&#1095;&#1077;&#1088;&#1072;</a> &bull; <a class="katinka-lnk" onclick="simGoGeneric('&#1059;&#1090;&#1088;&#1077;&#1096;&#1085;&#1072; &#1082;&#1072;&#1088;&#1090;&#1080;&#1085;&#1082;&#1072;')">&#1059;&#1090;&#1088;&#1077; &#8594;</a></p>
+          </div>
+        </div><!-- /spp-2 -->
+
+        <!-- PAGE 3: Generic article -->
+        <div class="sim-page wp-page" id="spp-3">
+          <div class="bgwp-topbar">
+            <span id="sim-art-head">&#1057;&#1090;&#1072;&#1090;&#1080;&#1103; &mdash; &#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103;</span>
+          </div>
+          <div class="bgwp-nav">
+            <a onclick="simBack()">&#8592; &#1053;&#1072;&#1079;&#1072;&#1076;</a>
+            <a onclick="simGoPage1()">&#1053;&#1072;&#1095;&#1072;&#1083;&#1085;&#1072; &#1089;&#1090;&#1088;&#1072;&#1085;&#1080;&#1094;&#1072;</a>
+            <a onclick="simWarnLink()">&#1057;&#1083;&#1091;&#1095;&#1072;&#1081;&#1085;&#1072; &#1089;&#1090;&#1072;&#1090;&#1080;&#1103;</a>
+          </div>
+          <div class="gen-art">
+            <div class="gen-art-h1" id="sim-art-title">&#1057;&#1090;&#1072;&#1090;&#1080;&#1103;</div>
+            <p id="sim-art-body">&#1057;&#1080;&#1084;&#1091;&#1083;&#1080;&#1088;&#1072;&#1085;&#1072; &#1089;&#1090;&#1072;&#1090;&#1080;&#1103; &#1074; &#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103;.</p>
+            <hr style="border:none;border-top:1px solid #a2a9b1;margin:10px 0">
+            <p style="font-size:12px;color:#54595d">&#1042;&#1080;&#1078;&#1090;&#1077; &#1089;&#1098;&#1097;&#1086;: <a class="gen-lnk" onclick="simGoGeneric('&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1080;&#1103;')">&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1080;&#1103;</a> &bull; <a class="gen-lnk" onclick="simGoGeneric('&#1048;&#1085;&#1090;&#1077;&#1088;&#1085;&#1077;&#1090;')">&#1048;&#1085;&#1090;&#1077;&#1088;&#1085;&#1077;&#1090;</a> &bull; <a class="gen-lnk" onclick="simGoGeneric('&#1061;&#1080;&#1087;&#1077;&#1088;&#1074;&#1088;&#1098;&#1079;&#1082;&#1072;')">&#1061;&#1080;&#1087;&#1077;&#1088;&#1074;&#1088;&#1098;&#1079;&#1082;&#1072;</a> &bull; <a class="gen-lnk" onclick="simGoGeneric('&#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103;')">&#1059;&#1080;&#1082;&#1080;&#1087;&#1077;&#1076;&#1080;&#1103;</a></p>
+          </div>
+        </div><!-- /spp-3 -->
+
+      </div><!-- /#sim-viewport -->
+
+      <!-- Loading overlay -->
+      <div id="sim-loading"><div class="sim-loader"></div></div>
+
+      <!-- Guided hint tooltip -->
+      <div id="sim-hint-box">
+        <div class="hs" id="sim-hs">&#1057;&#1058;&#1066;&#1055;&#1050;&#1040; 1 / 5</div>
+        <div id="sim-ht">&#1053;&#1072;&#1084;&#1077;&#1088;&#1080; „<strong>&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;</strong>" &#1074; &#1089;&#1087;&#1080;&#1089;&#1098;&#1082;&#1072; &#1089; &#1077;&#1079;&#1080;&#1094;&#1080; &#1080; &#1082;&#1083;&#1080;&#1082;&#1085;&#1080; &#8595;</div>
+      </div>
+
+      <!-- Warning / tip toast -->
+      <div id="sim-warn-toast">&#9888;&#65039; &#1057;&#1083;&#1077;&#1076;&#1074;&#1072;&#1081;&#1090;&#1077; &#1089;&#1090;&#1098;&#1087;&#1082;&#1080;&#1090;&#1077; &#1085;&#1072; &#1089;&#1080;&#1084;&#1091;&#1083;&#1072;&#1090;&#1086;&#1088;&#1072;!</div>
+
+    </div><!-- /#sim-browser -->
+  </div><!-- /.slide-body -->
+</div><!-- /.slide Задача 2 -->
 
 <div class="slide slide-section">
   <div class="animate-children" style="display:flex;flex-direction:column;align-items:center;gap:12px;position:relative">
@@ -1008,6 +1300,166 @@ function resetQuiz() {
   }
   document.getElementById('score-screen').classList.remove('show');
 }
+
+// ===== BROWSER SIMULATOR (Задача 2) =====
+;(function() {
+  var hist  = [{p:0, url:'https://www.wikipedia.org'}];
+  var idx   = 0;
+  var step  = 0;
+  var wTmr  = null;
+
+  var HINTS = [
+    ['СТЪПКА 1 / 5', 'Намери „<strong>Български</strong>" в списъка с езици и кликни'],
+    ['СТЪПКА 2 / 5', '&#128077; Отвори се bg.wikipedia.org! Натисни <strong>&#8592; Назад</strong> (горе вляво) &#8598;'],
+    ['СТЪПКА 3 / 5', 'Върна се! Натисни <strong>&#8594; Напред</strong> (горе вляво) &#8598;'],
+    ['СТЪПКА 4 / 5', 'Намери и кликни „<strong>&#128247; Картинка на деня</strong>"'],
+    ['СТЪПКА 5 / 5', '&#127881; Разгледай страницата! Натисни върху някоя от хипервръзките в статията!'],
+    ['&#9989; ЗАДАЧАТА Е ИЗПЪЛНЕНА!', 'Ти успешно навигира през основните стъпки за използване на браузър и сърфиране в интернет!']
+  ];
+
+  function el(id){ return document.getElementById(id); }
+
+  function updateUrl(u){ var e=el('sim-url-text'); if(e) e.textContent=u; }
+
+  function doShowPage(pageId){
+    document.querySelectorAll('.sim-page').forEach(function(p){p.classList.remove('active');});
+    var t=el('spp-'+pageId); if(t) t.classList.add('active');
+    var vp=el('sim-viewport'); if(vp) vp.scrollTop=0;
+  }
+
+  function withLoader(fn){
+    var ld=el('sim-loading');
+    if(ld){ ld.classList.add('show'); setTimeout(function(){ fn(); ld.classList.remove('show'); },260); }
+    else fn();
+  }
+
+  function updateNavBtns(){
+    var b=el('sim-back'), f=el('sim-fwd');
+    if(b) b.disabled = idx<=0;
+    if(f) f.disabled = idx>=hist.length-1;
+  }
+
+  function updateHint(){
+    var h=HINTS[Math.min(step, HINTS.length-1)];
+    var hs=el('sim-hs'), ht=el('sim-ht');
+    if(hs) hs.innerHTML=h[0];
+    if(ht) ht.innerHTML=h[1];
+  }
+
+  function updateStepBar(){
+    for(var i=0;i<5;i++){
+      var e=el('sim2-s'+i); if(!e) continue;
+      e.classList.remove('active','done');
+      if(i<step) e.classList.add('done');
+      else if(i===step && step<5) e.classList.add('active');
+    }
+  }
+
+  function setHighlights(){
+    document.querySelectorAll('.sim-hl').forEach(function(e){e.classList.remove('sim-hl');});
+    var map={0:'sim-bg-link',1:'sim-back',2:'sim-fwd',3:'sim-kartinka-link'};
+    if(map[step]){ var e=el(map[step]); if(e) e.classList.add('sim-hl'); }
+  }
+
+  function showWarn(msg){
+    var t=el('sim-warn-toast'); if(!t) return;
+    t.innerHTML=msg; t.classList.add('show');
+    if(wTmr) clearTimeout(wTmr);
+    wTmr=setTimeout(function(){t.classList.remove('show');},3200);
+  }
+
+  function advStep(n){
+    if(n>step){ step=n; updateHint(); updateStepBar(); setHighlights(); }
+  }
+
+  function navigate(pageId, url, afterFn){
+    hist=hist.slice(0,idx+1);
+    hist.push({p:pageId,url:url});
+    idx=hist.length-1;
+    withLoader(function(){
+      doShowPage(pageId); updateUrl(url); updateNavBtns(); setHighlights();
+      if(afterFn) afterFn();
+    });
+  }
+
+  // Public API (called from inline onclick)
+  window.simReset = function(){
+    hist=[{p:0,url:'https://www.wikipedia.org'}]; idx=0; step=0;
+    doShowPage(0); updateUrl('https://www.wikipedia.org');
+    updateNavBtns(); updateHint(); updateStepBar(); setHighlights();
+    var t=el('sim-warn-toast'); if(t) t.classList.remove('show');
+  };
+
+  window.simBack = function(){
+    if(idx<=0) return;
+    idx--;
+    var h=hist[idx];
+    withLoader(function(){
+      doShowPage(h.p); updateUrl(h.url); updateNavBtns();
+      if(step===1) advStep(2); else setHighlights();
+    });
+  };
+
+  window.simForward = function(){
+    if(idx>=hist.length-1) return;
+    idx++;
+    var h=hist[idx];
+    withLoader(function(){
+      doShowPage(h.p); updateUrl(h.url); updateNavBtns();
+      if(step===2) advStep(3); else setHighlights();
+    });
+  };
+
+  window.simReload = function(){
+    var h=hist[idx];
+    withLoader(function(){ doShowPage(h.p); updateUrl(h.url); });
+  };
+
+  window.simClickBgLink = function(){
+    var doAdv = (step===0);
+    navigate(1,'https://bg.wikipedia.org/', function(){ if(doAdv) advStep(1); });
+  };
+
+  window.simClickKartinka = function(){
+    var doAdv = (step===3);
+    navigate(2,'https://bg.wikipedia.org/wiki/Картинка_на_деня', function(){ if(doAdv) advStep(4); });
+  };
+
+  window.simGoPage1 = function(){
+    navigate(1,'https://bg.wikipedia.org/', function(){
+      // warn if pressing nav-bar link when step expects buttons
+      if(step===1||step===2){
+        showWarn('&#9757;&#65039; Тези са <strong>хипервръзки</strong> в страницата — трябваше да използвате бутона &#8592; / &#8594; на браузъра!');
+      } else { setHighlights(); }
+    });
+  };
+
+  window.simGoGeneric = function(title){
+    var url='https://bg.wikipedia.org/wiki/'+encodeURIComponent(title);
+    navigate(3, url, function(){
+      var h1=el('sim-art-title'), hd=el('sim-art-head'), bd=el('sim-art-body');
+      if(h1) h1.textContent=title;
+      if(hd) hd.textContent=title+' — Уикипедия';
+      if(bd) bd.textContent='Симулирана статия за „'+title+'" в Уикипедия. В реалната енциклопедия тук ще намерите подробна информация по темата.';
+      updateUrl(url);
+      if(step>=4){
+        advStep(5);
+        showWarn('&#9757;&#65039; <strong>Хипервръзка!</strong> Забелязваш ли разликата с бутоните &#8592; &#8594; на браузъра?');
+      } else if(step===1||step===2||step===3){
+        showWarn('&#9888;&#65039; Сега трябва да използвате <strong>бутоните на браузъра</strong> &#8592; / &#8594;, а не хипервръзките!');
+      } else {
+        showWarn('&#9757;&#65039; Хипервръзка! Забелязваш ли разликата с бутоните &#8592; &#8594;?');
+      }
+    });
+  };
+
+  window.simWarnLink = function(){
+    showWarn('&#9888;&#65039; Тази функция не е симулирана. Следвайте стъпките!');
+  };
+
+  // Init
+  updateNavBtns(); updateHint(); updateStepBar(); setHighlights();
+})();
 
 </script>
 </body>
