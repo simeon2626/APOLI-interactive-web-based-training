@@ -159,8 +159,16 @@ kbd { padding: 2px 5px; border: 1px solid var(--border); border-radius: 4px; bac
   .slide-img { width: 100%; flex: unset; }
   .slide-img img { max-width: 100%; max-height: 180px; }
   .slide-img > div { max-width: 100% !important; width: auto !important; }
-  /* Adjust scrollable height for smaller viewport */
-  .scrollable { max-height: calc(100vh - 170px); }
+  /* On mobile the entire slide scrolls — no inner scroll areas needed.
+     The slide gets overflow-y:auto so its content can scroll as one unit.
+     flex: 0 0 auto on slide-body and slide-text is critical: it sets
+     flex-shrink:0, which stops the flex algorithm from compressing children
+     to fit the fixed 100vh slide (which was the root cause of the inner-only
+     scroll). Content now overflows the slide and the slide itself scrolls. */
+  .slide { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .slide-body { flex: 0 0 auto; min-height: unset; }
+  .slide-text { flex: 0 0 auto; overflow-y: visible; min-width: 0; }
+  .scrollable { overflow-y: visible; max-height: none; }
   /* Section number slightly smaller */
   .section-number { font-size: 52px; }
   /* DigComp badge scaling */
